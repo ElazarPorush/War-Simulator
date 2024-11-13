@@ -1,15 +1,17 @@
-import { Request, Response } from "express"
-// import { initDataBase, addUser, userLogin } from "../services/users"
-// import { LoginDto } from "../types/DTO/user"
+import { Request, Response } from "express";
+import { RegisterDTO } from "../types/Dto/registerDto"
+import { addUser } from "../services/users";
 
-export const sid = async (req: Request, res: Response) => {
+
+export const register = async (req: Request<any, any, RegisterDTO>, res: Response) => {
     try {
-        // await initDataBase()
-        res.sendStatus(201)
+        console.log(req.body)
+        const newUser = await addUser(req.body)
+        res.status(201).json(newUser)
     } catch (err) {
         console.log(err)
-        res.sendStatus(400)
-    }
+        res.status(400).json((err as Error).message)
+    }   
 }
 
 export const login = async (req: Request, res: Response) => {
@@ -20,14 +22,3 @@ export const login = async (req: Request, res: Response) => {
       res.status(400).json((err as Error).message)
     }
   };
-  
-
-export const register = async (req: Request, res: Response) => {
-    try {
-        // const newUser = await addUser(req.body)
-        // res.status(201).json(newUser)
-    } catch (err) {
-        console.log(err)
-        res.status(400).json((err as Error).message)
-    }   
-}

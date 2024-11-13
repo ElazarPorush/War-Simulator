@@ -1,5 +1,5 @@
-interface IOrganization {
+export interface IOrganization {
     name: string,
-    resources: [string, number],
+    resources: {name: string, amount: number}[],
     budget: number
 }

@@ -1,4 +1,5 @@
 import { Schema, Types, Document, model } from "mongoose"
+import { IOrganization } from "../types/Dto/organization"
 
 export interface IUser extends Document{
     username: string
@@ -12,7 +13,10 @@ const userSchema = new Schema<IUser>({
         unique: true,
         required: [true, "username is required"]
     },
-    password: {type: String, required: [true, "password is required"]},
+    password: {
+        type: String,
+        required: [true, "password is required"]
+    },
     organization: {
         type: {
             name: String,

@@ -12,6 +12,7 @@ const db_1 = require("./config/db");
 const PORT = process.env.PORT || 3000;
 const app = (0, express_1.default)();
 (0, db_1.connectToMongo)();
+app.use(express_1.default.json());
 app.use('/api/users', users_1.default);
 app.use('/api/missiles', missiles_1.default);
 app.use('/api/organizations', organizations_1.default);

@@ -9,20 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = exports.login = exports.sid = void 0;
-// import { initDataBase, addUser, userLogin } from "../services/users"
-// import { LoginDto } from "../types/DTO/user"
-const sid = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.login = exports.register = void 0;
+const users_1 = require("../services/users");
+const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // await initDataBase()
-        res.sendStatus(201);
+        console.log(req.body);
+        const newUser = yield (0, users_1.addUser)(req.body);
+        res.status(201).json(newUser);
     }
     catch (err) {
         console.log(err);
-        res.sendStatus(400);
+        res.status(400).json(err.message);
     }
 });
-exports.sid = sid;
+exports.register = register;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //   const loggedUser = await userLogin(req.body)
@@ -33,14 +33,3 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        // const newUser = await addUser(req.body)
-        // res.status(201).json(newUser)
-    }
-    catch (err) {
-        console.log(err);
-        res.status(400).json(err.message);
-    }
-});
-exports.register = register;
