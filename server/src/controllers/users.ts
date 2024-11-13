@@ -1,12 +1,12 @@
 import { Router } from "express"
-import { register } from "../routes/users"
+import { login, register } from "../routes/users"
 
 const router = Router()
 
 
 router.post("/register", register)
 
-router.post("/login", ()=>{})
+router.post("/login", login)
 
 router.patch("/updateMissiles/:id", ()=>{})
 
