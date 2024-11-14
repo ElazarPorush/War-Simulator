@@ -23,17 +23,43 @@ const handleConnection = (client) => {
         console.log("Bye bye user");
     });
     client.on('attack', (attack) => __awaiter(void 0, void 0, void 0, function* () {
-        const missile = missiles_json_1.default.find(msl => msl.name === attack.missileName);
-        const newAttack = new attack_1.default(Object.assign(Object.assign({}, attack), { timeToLeft: missile.speed }));
-        yield newAttack.save();
-        app_1.io.emit("handle attack");
+        try {
+            const missile = missiles_json_1.default.find(msl => msl.name === attack.missileName);
+            const newAttack = new attack_1.default(Object.assign(Object.assign({}, attack), { timeToLeft: missile.speed }));
+            yield newAttack.save();
+            app_1.io.emit("fetch attacks");
+        }
+        catch (err) {
+            throw new Error(err.message);
+        }
     }));
     client.on("decrease missile", (decrease) => __awaiter(void 0, void 0, void 0, function* () {
-        yield user_1.default.findByIdAndUpdate({ _id: decrease.user_id, "organization.resources.name": decrease.missileName }, {
-            $dec: {
-                "organization.resources.$.name": 1,
+        try {
+            yield user_1.default.findByIdAndUpdate({ _id: decrease.user_id, "organization.resources.name": decrease.missileName }, {
+                $dec: {
+                    "organization.resources.$.name": 1,
+                }
+            });
+        }
+        catch (err) {
+            console.log(err);
+            throw new Error(err.message);
+        }
+    }));
+    client.on("find missile to defend", (findMissile) => __awaiter(void 0, void 0, void 0, function* () {
+        const user = yield user_1.default.findById(findMissile.user_id);
+        let sum = 0;
+        let finalMissile = "";
+        for (const missile of user.organization.resources) {
+            const missileDefend = missiles_json_1.default.find(msl => msl.name === missile.name);
+            if (findMissile.missileSpeed >= missileDefend.speed) {
+                if (missileDefend.speed >= sum) {
+                    sum = missileDefend.speed;
+                    finalMissile = missileDefend.name;
+                }
             }
-        });
+        }
+        return { missileName: finalMissile };
     }));
 };
 exports.handleConnection = handleConnection;

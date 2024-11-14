@@ -16,13 +16,16 @@ export default function ControlPanel() {
     if (!user?._id) {
       navigate('/login')
     }
-    console.log(user)
     dispatch(fetchAttacks())
   }, [])
 
-  const handleAttack = () => {
-    socket.emit("attack", { missileName: "Fajr-5", from: "Hezbollah", to: "IDF - South" })
+  socket.on("fetch attacks", () => {
     dispatch(fetchAttacks())
+  })
+
+  const handleAttack = (missileName: string) => {
+    socket.emit("attack", { missileName, from: user?.organization.name, to: "IDF - South" })
+    socket.emit("decrease missile", {missileName, user_id: user?._id})
   }
 
   const handleLogout = () => {
@@ -37,15 +40,14 @@ export default function ControlPanel() {
         <h3>{user?.organization.name}</h3>
         {user?.organization.name.split(" ")[0] === "IDF" ?
           user?.organization.resources.map(missile => <p>{missile.name} x {missile.amount}</p>) : 
-          
-          user?.organization.resources.map(missile => <a onClick={handleAttack}>{missile.name} x {missile.amount}</a>)
+          user?.organization.resources.map(missile => <a onClick={() => handleAttack(missile.name)}>{missile.name} x {missile.amount}</a>)
         }
         <button onClick={handleLogout}>Log Out </button>
       </div>
       <div className='table'>
         <table>
           <tr>
-            <th>Missile Name</th>
+            <th>Rocket</th>
             <th>Time To Left</th>
             <th>Status</th>
           </tr>
