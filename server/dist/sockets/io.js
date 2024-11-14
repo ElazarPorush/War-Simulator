@@ -35,11 +35,14 @@ const handleConnection = (client) => {
     }));
     client.on("decrease missile", (decrease) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            yield user_1.default.findByIdAndUpdate({ _id: decrease.user_id, "organization.resources.name": decrease.missileName }, {
-                $dec: {
-                    "organization.resources.$.name": 1,
-                }
-            });
+            // const user: IUser = await User.find({_id: decrease.user_id})!
+            // for (const rocket of user.organization.resources) {
+            //     if (rocket.name === decrease.missileName){
+            //         rocket.amount = rocket.amount - 1
+            //         break
+            //     }
+            // }
+            // user.save()
         }
         catch (err) {
             console.log(err);
@@ -60,6 +63,20 @@ const handleConnection = (client) => {
             }
         }
         client.emit("update missile defend", finalMissile);
+    }));
+    client.on("set status", (attack_id) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            // const attacks: IAttack[] = await Attack.find()
+            // const attack = attacks.find(atc => atc._id === attack_id)!
+            // const newAttack: IAttack = attack
+            // newAttack.timeToLeft = 0
+            // newAttack.status = StatusAttack.Hit
+            // newAttack.save()
+            // io.emit("fetch attacks")
+        }
+        catch (error) {
+            throw error;
+        }
     }));
 };
 exports.handleConnection = handleConnection;

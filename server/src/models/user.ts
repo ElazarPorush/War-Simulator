@@ -2,6 +2,7 @@ import { Schema, Types, Document, model } from "mongoose"
 import { IOrganization } from "../types/organization"
 
 export interface IUser extends Document {
+    _id: string
     username: string
     password: string
     organization: IOrganization

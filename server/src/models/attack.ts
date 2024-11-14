@@ -2,6 +2,7 @@ import { Schema, Document, model } from "mongoose"
 import { StatusAttack } from "../types/statusAttack"
 
 export interface IAttack extends Document {
+    _id: string
     missileName: string
     from: string
     to: string
