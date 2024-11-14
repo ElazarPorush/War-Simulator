@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import attacksSlice from "./slices/attackSlice";
 
 const store = configureStore({
     reducer: {
-        user: userSlice.reducer
+        user: userSlice.reducer,
+        attacks: attacksSlice.reducer
     }
 })
 
