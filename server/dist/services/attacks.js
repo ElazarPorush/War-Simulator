@@ -8,16 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getAttacksList = void 0;
+const attack_1 = __importDefault(require("../models/attack"));
+const getAttacksList = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const attacks = yield getAttacks();
-        res.status(200).json(attacks);
+        return yield attack_1.default.find();
     }
     catch (err) {
         console.log(err);
-        res.status(400).json(err.message);
+        throw new Error("Sorry but there is a problem to load the list: " + err);
     }
 });
-exports.register = register;
+exports.getAttacksList = getAttacksList;

@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getAttacks = void 0;
+const attacks_1 = require("../services/attacks");
+const getAttacks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const attacks = yield getAttacks();
+        const attacks = yield (0, attacks_1.getAttacksList)();
         res.status(200).json(attacks);
     }
     catch (err) {
@@ -20,4 +21,4 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(400).json(err.message);
     }
 });
-exports.register = register;
+exports.getAttacks = getAttacks;
