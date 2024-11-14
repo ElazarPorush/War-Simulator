@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { useNavigate } from 'react-router-dom'
+import { fetchAttacks } from '../../redux/slices/attackSlice'
+import { socket } from '../../main'
 
 export default function ControlPanel() {
   const dispatch = useAppDispatch()
@@ -12,11 +14,16 @@ export default function ControlPanel() {
       navigate('/login')
     }
     console.log(user)
-    // dispatch(fetchCandidates())
+    dispatch(fetchAttacks())
   }, [])
+
+  const handleAttack = () => {
+    socket.emit("attack", {missileName: "Fajr-5", from: "Hezbollah", to: "IDF - South"})
+  }
+
   return (
     <div>
-      hello
+      <button onClick={handleAttack}>add attack</button>
     </div>
   )
 }

@@ -22,12 +22,12 @@ const handleConnection = (client) => {
     client.on("disconnect", () => {
         console.log("Bye bye user");
     });
-    client.on('attack', (attack) => {
+    client.on('attack', (attack) => __awaiter(void 0, void 0, void 0, function* () {
         const missile = missiles_json_1.default.find(msl => msl.name === attack.missileName);
         const newAttack = new attack_1.default(Object.assign(Object.assign({}, attack), { timeToLeft: missile.speed }));
-        newAttack.save();
+        yield newAttack.save();
         app_1.io.emit("handle attack");
-    });
+    }));
     client.on("decrease missile", (decrease) => __awaiter(void 0, void 0, void 0, function* () {
         yield user_1.default.findByIdAndUpdate({ _id: decrease.user_id, "organization.resources.name": decrease.missileName }, {
             $dec: {

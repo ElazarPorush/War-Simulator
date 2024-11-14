@@ -13,13 +13,13 @@ export const handleConnection = (client: Socket) => {
         console.log("Bye bye user")
     })
 
-    client.on('attack', (attack: AttackDTO) => {
+    client.on('attack', async (attack: AttackDTO) => {
         const missile: MissileDTO = missiles.find(msl => msl.name === attack.missileName)!
         const newAttack = new Attack({
             ...attack,
             timeToLeft: missile.speed
         })
-        newAttack.save()
+        await newAttack.save()
         io.emit("handle attack")
     })
 
