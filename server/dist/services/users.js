@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userLogin = exports.addUser = void 0;
+exports.getUserProfile = exports.userLogin = exports.addUser = void 0;
 const bcrypt_1 = require("bcrypt");
 const user_1 = __importDefault(require("../models/user"));
 const organizations_json_1 = __importDefault(require("../data/organizations.json"));
@@ -55,3 +55,15 @@ const userLogin = (user) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.userLogin = userLogin;
+const getUserProfile = (user) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userFromDatabase = yield user_1.default.findOne({ username: user.username }).lean();
+        if (!userFromDatabase)
+            throw new Error("user not found");
+        return Object.assign(Object.assign({}, userFromDatabase), { password: "******" });
+    }
+    catch (err) {
+        throw err;
+    }
+});
+exports.getUserProfile = getUserProfile;

@@ -39,3 +39,13 @@ export const userLogin = async (user: LoginDTO) => {
       throw err;
     }
   };
+
+  export const getUserProfile = async (user: LoginDTO) => {
+    try {
+      const userFromDatabase = await User.findOne({ username: user.username }).lean();
+        if (!userFromDatabase) throw new Error("user not found");
+        return {...userFromDatabase, password: "******"}
+    } catch (err) {
+      throw err
+    }
+  }

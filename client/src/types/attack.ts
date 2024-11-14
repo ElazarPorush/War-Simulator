@@ -1,4 +1,5 @@
 export interface IAttack {
+    _id: string,
     missileName: string
     from: string
     to: string

@@ -72,3 +72,8 @@ td {
   display: flex;
   justify-content: center;
 }
+
+.defend {
+  display: flex;
+  justify-content: space-between;
+}

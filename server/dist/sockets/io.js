@@ -59,7 +59,7 @@ const handleConnection = (client) => {
                 }
             }
         }
-        return { missileName: finalMissile };
+        client.emit("update missile defend", finalMissile);
     }));
 };
 exports.handleConnection = handleConnection;

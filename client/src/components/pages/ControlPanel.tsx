@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { fetchAttacks } from '../../redux/slices/attackSlice'
 import { socket } from '../../main'
 import AttackCard from './AttackCard'
-import userSlice from '../../redux/slices/userSlice'
+import userSlice, { fetchUser } from '../../redux/slices/userSlice'
 
 export default function ControlPanel() {
   const dispatch = useAppDispatch()
@@ -26,6 +26,7 @@ export default function ControlPanel() {
   const handleAttack = (missileName: string) => {
     socket.emit("attack", { missileName, from: user?.organization.name, to: "IDF - South" })
     socket.emit("decrease missile", {missileName, user_id: user?._id})
+    dispatch(fetchUser({username: user?.username!, password: user?.password!}))
   }
 
   const handleLogout = () => {

@@ -55,6 +55,6 @@ export const handleConnection = (client: Socket) => {
                 }
             }
         }
-        return {missileName: finalMissile}
+        client.emit("update missile defend", finalMissile)
     })
 }

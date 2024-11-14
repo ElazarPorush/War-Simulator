@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.register = void 0;
+exports.getProfile = exports.login = exports.register = void 0;
 const users_1 = require("../services/users");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -34,3 +34,14 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
+const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log(req.body);
+        const user = yield (0, users_1.getUserProfile)(req.body);
+        res.status(200).json(user);
+    }
+    catch (err) {
+        res.status(400).json(err.message);
+    }
+});
+exports.getProfile = getProfile;

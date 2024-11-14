@@ -55,6 +55,27 @@ export const fetchRegister = createAsyncThunk('user/register',
     }
 )
 
+export const fetchUser = createAsyncThunk('user/profile',
+    async (user: { username: string, password: string }, thunkApi) => {
+        try {
+            const res = await fetch("http://localhost:8200/api/users/", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+            if (res.status !== 201) {
+                thunkApi.rejectWithValue("Can't get user, please try again")
+            }
+            const data = await res.json()
+            return data
+        } catch (err) {
+            thunkApi.rejectWithValue(err)
+        }
+    }
+)
+
 const userSlice = createSlice({
     name: "user",
     initialState,
