@@ -1,9 +1,13 @@
 body {
 	background: #DCDDDF url(https://cssdeck.com/uploads/media/items/7/7AF2Qzt.png);
+}
+
+.container {
 	color: #000;
 	font: 14px Arial;
 	margin: 0 auto;
 	padding: 0;
+	/* margin-top: 10vh; */
 	position: relative;
 	display: flex;
 	height: 90vh;
