@@ -24,12 +24,14 @@ export default function AttackCard({ attack }: Props) {
         return false
     }
 
-    const [disabled, setDisabled] = useState(true)
+    const [disabled, setDisabled] = useState(false)
     useEffect(() => {
         if (!missileDefend) {
             setDisabled(false)
         }
-        setDisabled(true)
+        else {
+            setDisabled(true)
+        }
     }, [missileDefend])
 
     const handleDefend = () => {
@@ -57,7 +59,7 @@ export default function AttackCard({ attack }: Props) {
         <tr>
             <td>{attack.missileName}</td>
             <td>{timeToLeft}</td>
-            <td><div className="defend">{attack.status}<button disabled={disabled} onClick={handleDefend}>❌</button></div></td>
+            <td><div className="defend">{<p>{attack.status}</p>}{<p className="defend-button" style={{"display": disabled ? "block" : "none"}} onClick={handleDefend}>❌</p>}</div></td>
         </tr>
     )
 }

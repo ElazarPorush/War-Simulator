@@ -77,3 +77,15 @@ td {
   display: flex;
   justify-content: space-between;
 }
+
+.location {
+  border-radius: 10px;
+  font-size: 17px;
+  padding: 2px;
+  background-color: #fec15174;
+}
+
+.defend-button:hover {
+  background-color: #cd0c05;
+  border-radius: 5px;
+}

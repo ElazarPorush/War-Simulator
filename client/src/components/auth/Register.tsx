@@ -12,6 +12,7 @@ export default function Register() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [organization, setOrganization] = useState("")
+  const [disable, setDisable] = useState(false)
 
   useEffect(() => {
     if (!user?._id) return
@@ -25,8 +26,11 @@ export default function Register() {
   }, [])
 
   useEffect(() => {
-    if (organization === "IDF"){
-      
+    if (organization.split(" ")[0] === "IDF"){
+      setDisable(true)
+    }
+    else {
+      setDisable(false)
     }
   }, [organization])
 
@@ -51,7 +55,7 @@ export default function Register() {
                       <option value="Houthis">Houthis</option>
                     </select>
                 </div>
-                <div style={{"display": "none"}}>
+                <div style={{"display": disable ? "block" : "none"}}>
                   <select name="location" required={organization[1] === "D"? true: false} id='location' onChange={(e) => setOrganization("IDF - " + e.target.value)}>
                     <option disabled>Location</option>
                     <option value="North">North</option>
