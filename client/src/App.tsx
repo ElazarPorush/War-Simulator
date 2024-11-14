@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
-import Home from './components/pages/Home'
+import ControlPanel from './components/pages/ControlPanel'
 
 export default function App() {
   return (
@@ -10,7 +10,8 @@ export default function App() {
       <Routes>
       <Route path='login' element={<Login/>} />
       <Route path='register' element={<Register/>} />
-      <Route path='/' element={<Home/>} />
+      <Route path='controlPanel' element={<ControlPanel/>} />
+      <Route path='/' element={<ControlPanel/>} />
       </Routes>
     </div>
   )
